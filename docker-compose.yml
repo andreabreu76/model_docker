@@ -6,13 +6,13 @@ services:
     build:
         context: ./
         dockerfile: app.dockerfile
-    image: app-container
+    image: app-${PROJECT_NAME}
     working_dir: /var/www
     volumes:
-        - ./src/:/var/www
+        - ${APP_EXTERNAL_DIR}:/var/www
     environment:
-        - "DB_PORT=3306"
-        - "DB_HOST=database"
+        - "DB_PORT=${DB_INTERNAL_PORT}"
+        - "DB_HOST=${DB_INTERNAL_HOST}"
     
 
   # The Web Server
@@ -20,28 +20,28 @@ services:
     build:
         context: ./
         dockerfile: web.dockerfile
-    image: web-container
+    image: web-${PROJECT_NAME}
     working_dir: /var/www
     volumes_from:
         - app
     ports:
-        - 8099:80
+        - ${WEB_EXTERNAL_PORT}:${WEB_INTERNAL_PORT}
 
   # The Database
   database:
     build:
         context: ./
         dockerfile: db.dockerfile
-    image: database-container
+    image: database-${PROJECT_NAME}
     volumes:
         - dbdata:/var/lib/mysql
     environment:
-        - "MYSQL_DATABASE=homestead"
-        - "MYSQL_USER=homestead"
-        - "MYSQL_PASSWORD=secret"
-        - "MYSQL_ROOT_PASSWORD=secret"
+        - "MYSQL_DATABASE=${DB_DATABASE}"
+        - "MYSQL_USER=${DB_USER}"
+        - "MYSQL_PASSWORD=${DB_PASSWORD}"
+        - "MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}"
     ports:
-        - "3300:3306"
+        - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
 
 volumes:
     dbdata:
