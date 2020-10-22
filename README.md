@@ -16,7 +16,7 @@ Arquivo de controle da imagem que fará parte do container rodando a APLICAÇAO.
 > 
 > Composer 1.10
 
-## web.dockerfile
+## web.dockerfile
 
 Arquivo de controle da imagem que fará parte do container rodando o serviço HTTP/HTTPS ou WEB. Fara chamada direta da imagem de APLICAÇÂO para rodar os scripts de desenvolvimento.
 
@@ -29,3 +29,51 @@ Arquivo vhost.conf é chamado por este dockerfile para que juntamente com o cont
 Arquivo de controle da imagem que fará parte do container rodando serviço de Banco de Dados. Servirá de DB para o proprio ambiente.
 
 > MariaDB 10.5
+
+# Execução / Uso
+
+Após o download configure seu ambiente editanto o arquivo .env com os parametros necessarios
+
+```bash
+nano .env
+```
+
+Inicie o container.
+
+```bash
+docker-compose up --build -d
+```
+
+Caso tenha sucesso digite `docker ps` para obter a listagem de imagens em execução. Feito isso execute:
+
+Para iniciar um projeto Laravel.
+
+```bash
+docker exec -it <meucontainer>_app_1 composer create-project --prefer-dist laravel/laravel src
+```
+
+```bash
+cd src/
+```
+
+```bash
+docker exec -it <meucontainer>_app_1 php artisan optimize
+```
+
+Para iniciar um projeto Node.js
+
+```bash
+docker exec -it <meucontainer>_app_1 npm init src
+```
+
+```bash
+cd src/
+```
+
+```bash
+docker exec -it <meucontainer>_app_1 npm i npm -g
+```
+
+```bash
+docker exec -it <meucontainer>_app_1 npm run watch
+```
