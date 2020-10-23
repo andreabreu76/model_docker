@@ -32,7 +32,19 @@ Arquivo de controle da imagem que fará parte do container rodando serviço de B
 
 # Execução / Uso
 
-Após o download configure seu ambiente editanto o arquivo .env com os parametros necessarios
+Após o download, renomeie a pasta model_docker para um nome que represente melhor seu projeto.
+
+```bash
+mv model_docker meuprojeto
+```
+
+Feito isso, apague as informações GIT atual (do model_docker) e inicie seu proprio GIT. 
+
+```bash
+rm -rf .git/ && git init
+```
+
+Configure seu ambiente editanto o arquivo .env com os parametros necessarios
 
 ```bash
 nano .env
@@ -49,7 +61,7 @@ Caso tenha sucesso digite `docker ps` para obter a listagem de imagens em execu�
 Para iniciar um projeto Laravel.
 
 ```bash
-docker exec -it <meucontainer>_app_1 composer create-project --prefer-dist laravel/laravel src
+docker exec -it meuprojeto_app_1 composer create-project --prefer-dist laravel/laravel src
 ```
 
 ```bash
@@ -57,13 +69,13 @@ cd src/
 ```
 
 ```bash
-docker exec -it <meucontainer>_app_1 php artisan optimize
+docker exec -it meuprojeto_app_1 php artisan optimize
 ```
 
 Para iniciar um projeto Node.js
 
 ```bash
-docker exec -it <meucontainer>_app_1 npm init src
+docker exec -it meuprojeto_app_1 npm init src
 ```
 
 ```bash
@@ -71,9 +83,9 @@ cd src/
 ```
 
 ```bash
-docker exec -it <meucontainer>_app_1 npm i npm -g
+docker exec -it meuprojeto_app_1 npm i npm -g
 ```
 
 ```bash
-docker exec -it <meucontainer>_app_1 npm run watch
+docker exec -it meuprojeto_app_1 npm run watch
 ```
