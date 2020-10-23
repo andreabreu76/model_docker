@@ -61,7 +61,7 @@ Caso tenha sucesso digite `docker ps` para obter a listagem de imagens em execuÃ
 Para iniciar um projeto Laravel.
 
 ```bash
-docker exec -it meuprojeto_app_1 composer create-project --prefer-dist laravel/laravel src
+Â docker run --rm -v $(pwd):/app composer create-project --prefer-dist laravel/laravel src
 ```
 
 ```bash
