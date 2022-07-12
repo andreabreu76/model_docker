@@ -32,6 +32,8 @@ Arquivo de controle da imagem que fará parte do container rodando serviço de B
 
 # Execução / Uso
 
+## Projeto PHP 8.1 / Laravel
+
 Após o download, renomeie a pasta model_docker para um nome que represente melhor seu projeto.
 
 ```bash
@@ -65,12 +67,25 @@ Para iniciar um projeto Laravel.
 ```
 
 ```bash
+ sudo chown -R $USER:$USER src/
+```
+
+```bash
 cd src/
+```
+
+```bash
+chmod -R 777 storage/
 ```
 
 ```bash
 docker exec -it meuprojeto_app_1 php artisan optimize
 ```
+
+Basta testar o projeto no navegador http://localhost:8088.
+
+
+## Projeto NODE.js 8.11 / Express
 
 Para iniciar um projeto Node.js
 
