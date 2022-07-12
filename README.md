@@ -52,12 +52,6 @@ Configure seu ambiente editanto o arquivo .env com os parametros necessarios
 nano .env
 ```
 
-Inicie o container.
-
-```bash
-docker-compose up --build -d
-```
-
 Caso tenha sucesso digite `docker ps` para obter a listagem de imagens em execução. Feito isso execute:
 
 Para iniciar um projeto Laravel.
@@ -80,6 +74,16 @@ chmod -R 777 storage/
 
 ```bash
 docker exec -it meuprojeto_app_1 php artisan optimize
+```
+
+Inicie o container.
+
+```bash
+cd ../
+```
+
+```bash
+docker-compose up --build -d
 ```
 
 Basta testar o projeto no navegador http://localhost:8088.
