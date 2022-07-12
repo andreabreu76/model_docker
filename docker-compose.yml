@@ -1,47 +1,46 @@
 version: '2'
 services:
 
-  # The Application
-  app:
-    build:
-        context: ./
-        dockerfile: app.dockerfile
-    image: app-${PROJECT_NAME}
-    working_dir: /var/www
-    volumes:
-        - ${APP_EXTERNAL_DIR}:/var/www
-    environment:
-        - "DB_PORT=${DB_INTERNAL_PORT}"
-        - "DB_HOST=${DB_INTERNAL_HOST}"
-    
+    # The Application
+    app:
+        build:
+            context: ./
+            dockerfile: app.dockerfile
+        image: app-${PROJECT_NAME}
+        working_dir: /var/www
+        volumes:
+            - ./src/:/var/www
+        environment:
+            - "DB_PORT=${DB_INTERNAL_PORT}"
+            - "DB_HOST=${DB_INTERNAL_HOST}"
 
-  # The Web Server
-  web:
-    build:
-        context: ./
-        dockerfile: web.dockerfile
-    image: web-${PROJECT_NAME}
-    working_dir: /var/www
-    volumes_from:
-        - app
-    ports:
-        - ${WEB_EXTERNAL_PORT}:${WEB_INTERNAL_PORT}
+    # The Web Server
+    web:
+        build:
+            context: ./
+            dockerfile: web.dockerfile
+        image: web-${PROJECT_NAME}
+        working_dir: /var/www
+        volumes_from:
+            - app
+        ports:
+            - ${WEB_EXTERNAL_PORT}:${WEB_INTERNAL_PORT}
 
-  # The Database
-  database:
-    build:
-        context: ./
-        dockerfile: db.dockerfile
-    image: database-${PROJECT_NAME}
-    volumes:
-        - dbdata:/var/lib/mysql
-    environment:
-        - "MYSQL_DATABASE=${DB_DATABASE}"
-        - "MYSQL_USER=${DB_USER}"
-        - "MYSQL_PASSWORD=${DB_PASSWORD}"
-        - "MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}"
-    ports:
-        - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
+    # The Database
+    database:
+        build:
+            context: ./
+            dockerfile: db.dockerfile
+        image: database-${PROJECT_NAME}
+        volumes:
+            - dbdata:/var/lib/mysql
+        environment:
+            - "MYSQL_DATABASE=${DB_DATABASE}"
+            - "MYSQL_USER=${DB_USER}"
+            - "MYSQL_PASSWORD=${DB_PASSWORD}"
+            - "MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}"
+        ports:
+            - "${DB_EXTERNAL_PORT}:${DB_INTERNAL_PORT}"
 
 volumes:
     dbdata:
